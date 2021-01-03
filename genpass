@@ -1,0 +1,53 @@
+#!/bin/bash
+version=1.0;
+
+function runn() {
+        tr -dc A-Za-z0-9\#\@\$ </dev/urandom | head -c $1; echo; 
+}
+
+function rrun() {
+	if [[ -n $1 ]]; then
+		local var=$1
+	else
+		local var=10
+	fi
+	if [[ $loop -gt 1  ]]; then
+		for i in $(seq $loop); do
+			runn $var
+			sleep 1
+		done
+	else
+		runn $var
+	fi
+}
+
+myVar=$1
+if [[ -n $myVar ]]; then
+        while [[ $1 =~ ^- && ! $1 =~ "^--" ]]; do case $1 in
+            -V | --version )
+            echo $version
+            exit
+            ;;
+            -h | --help )
+		echo "Version: $version"
+		echo "Generates random password of 10 default characters or as given as first parameter"
+		echo "syntax: genpass  [OPTIONS] <password length>"
+		echo "[OPTIONS]:"
+		echo "-h | --help : Display this help."
+		echo "-l | --loop <frequency>: loops command to print random password as specified as frequency"
+	    exit
+            ;;
+            -l | --loop )
+            shift; loop=$1
+            ;;
+            -f | --flag )
+            flag=1
+            ;;
+	esac; shift; done
+	rrun $1;
+else
+	echo "syntex: genpass <word length>";
+	myVar=10;
+	rrun $myVar;
+
+fi
