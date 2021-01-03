@@ -2,7 +2,8 @@
 version=1.0;
 
 function runn() {
-        tr -dc A-Za-z0-9\#\@\$ </dev/urandom | head -c $1; echo; 
+        tr -dc A-Za-z0-9\#\@\$\!\%\^\&\(\) </dev/urandom | head -c $1; echo; 
+        #tr -dc [:print:] </dev/urandom | head -c $1; echo; 
 }
 
 function rrun() {
