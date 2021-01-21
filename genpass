@@ -2,8 +2,8 @@
 version=1.0;
 
 function runn() {
-        tr -dc A-Za-z0-9\#\@\$\!\%\^\&\(\) </dev/urandom | head -c $1; echo; 
-        #tr -dc [:print:] </dev/urandom | head -c $1; echo; 
+        tr -dc A-Za-z0-9\#\@\$\!\%\^\&\(\) </dev/urandom | head -c $1; echo;
+        #tr -dc [:print:] </dev/urandom | head -c $1; echo;
 }
 
 function rrun() {
@@ -15,7 +15,6 @@ function rrun() {
 	if [[ $loop -gt 1  ]]; then
 		for i in $(seq $loop); do
 			runn $var
-			sleep 1
 		done
 	else
 		runn $var
