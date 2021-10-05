@@ -1,4 +1,4 @@
-# genpass
+#  genpass
 
 
 Generates random password of 10 default characters or as given as first parameter <br>
