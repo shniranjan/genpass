@@ -2,8 +2,7 @@
 version=1.0;
 
 function runn() {
-        tr -dc A-Za-z0-9\#\@\$\!\%\^\&\(\) </dev/urandom | head -c $1; echo;
-        #tr -dc [:print:] </dev/urandom | head -c $1; echo;
+        tr -dc A-Za-z0-9\#\@\$ </dev/urandom | head -c $1; echo; 
 }
 
 function rrun() {
@@ -15,12 +14,13 @@ function rrun() {
 	if [[ $loop -gt 1  ]]; then
 		for i in $(seq $loop); do
 			runn $var
+			#sleep 1
 		done
 	else
 		runn $var
 	fi
 }
-
+lcnt=$2
 myVar=$1
 if [[ -n $myVar ]]; then
         while [[ $1 =~ ^- && ! $1 =~ "^--" ]]; do case $1 in
@@ -29,22 +29,24 @@ if [[ -n $myVar ]]; then
             exit
             ;;
             -h | --help )
-		echo "Version: $version"
-		echo "Generates random password of 10 default characters or as given as first parameter"
-		echo "syntax: genpass  [OPTIONS] <password length>"
-		echo "[OPTIONS]:"
-		echo "-h | --help : Display this help."
-		echo "-l | --loop <frequency>: loops command to print random password as specified as frequency"
-	    exit
-            ;;
-            -l | --loop )
-            shift; loop=$1
+		    echo "Version: $version"
+		    echo "Generates random password of 10 default characters or as given as first parameter"
+		    echo "syntax: genpass  [password length] [frequency]"
+		    echo "-h | --help : Display this help."
+	        exit
             ;;
             -f | --flag )
             flag=1
             ;;
 	esac; shift; done
-	rrun $1;
+	if [[ -z $lcnt ]]; then
+	    rrun $1
+	    else
+	        while (($lcnt>=1)); do
+	            rrun $1;
+	            lcnt=$(echo $lcnt-1|bc)
+	        done
+	 fi
 else
 	echo "syntex: genpass <word length>";
 	myVar=10;
