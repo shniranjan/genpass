@@ -9,6 +9,11 @@ This program generate random alpha-numerial texts including $ and # sign to be u
 
 To install this program:<br>
 
+Run the command:<br>
+curl -s https://raw.githubusercontent.com/shniranjan/genpass/main/setup.sh|sudo bash
+<br>
+
+Or classic way of installation:
 First clone the repository or download it. <br>
 CD into the folder then run the command <br>
 sudo bash setup.sh <br><br>
